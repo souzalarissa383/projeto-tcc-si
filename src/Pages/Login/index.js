@@ -1,21 +1,41 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import { Form, Container } from "./style";
 import Input from "../../Components/Input/index";
 import Botao from "../../Components/Botao/index";
+import { validarEmail, validarSenha } from "../../Utils/validadores";
+import Nav from 'react-bootstrap/Nav';
+
 const Login = () => {
+  const [loading, setLoading] = useState();
+  const [form, setForm] = useState([]);
 
-    const handleSubmit = async () => {
-        alert('Login')
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      alert("Login");
+      setLoading(false);
+    } catch (err) {
+      alert("Algo deu errado com o Login" + err);
     }
+  };
 
-    const handleChange = (event) =>{
-        console.log('Digitando....',event.target.name, event.targe.value)
-    }
+  const handleChange = (event) => {
+    console.log("Digitando...", event.target.name, event.targe.value);
+    setForm({ ...Form, [event.target.name]: event.target.value });
+    console.log("Form", form);
+  };
 
+  const validadorInput = () => {
+    return validarEmail(form.email) && validarSenha(form.password);
+  };
+
+  console.log("Form esta valido? ", validadorInput());
   return (
     <div className="App">
       <Container>
         <Form>
+          <h1>Entre no seu perfil</h1>
           <Input
             name="email"
             placeholder="Digite o seu e-mail"
@@ -32,18 +52,17 @@ const Login = () => {
             type="submit"
             text="Entrar!"
             onClick={handleSubmit}
-          
+            disabled={loading === true || !validadorInput()}
           />
-          <h1>Entre no seu perfil</h1>
 
           <div>
             <p>Não possui conta?</p>
-            <a>Cadastrar</a>
+            <Nav.Link to="cadastrar">Cadastrar</Nav.Link>
           </div>
         </Form>
       </Container>
     </div>
-  );
-};
+  )
+}
 
 export default Login;
