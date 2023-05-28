@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Header from './components/Home/Index'
-import Login from './components/Login'
-import Empresa from './components/Empresas'
+import Header from './Pages/Home/Index';
+import Login from './Pages/Login';
+import Empresa from './Pages/Empresas';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
+    
        <Router>
       <Header/>
       <Switch>
