@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom'
 const Login = () => {
     const [loading, setLoading] = useState()
     const [form, setForm] = useState([])
-    const navigate = useNavigate()
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,10 +21,8 @@ const Login = () => {
   };
 
   const handleChange = (event) => {
-    console.log("Digitando...", event.target.name, event.targe.value)
-    setForm({ ...Form, [event.target.name]: event.target.value })
-    console.log("Form", form)
-  };
+    setForm({...form, [event.target.name]: event.target.value})
+  }
 
   const validadorInput = () => {
     return validarEmail(form.email) && validarSenha(form.password)
