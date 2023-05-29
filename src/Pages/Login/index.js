@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
-import { Form, Container } from './style'
-import Input from '../../Components/Input/index'
-import Botao from '../../Components/Botao/index'
-import { validarEmail, validarSenha } from '../../Utils/validadores'
-import { NavLink } from 'react-router-dom'
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { Form, Container } from "./style";
+import Input from "../../Components/Input/index";
+import Botao from "../../Components/Botao/index";
+import { validarEmail, validarSenha } from "../../Utils/validadores";
+import { NavLink, useNavigate } from "react-router-dom";
+import UserService from "../../Services/UserService";
+
+const userService = new UserService();
 
 const Login = () => {
-    const [loading, setLoading] = useState()
-    const [form, setForm] = useState([])
-  
+  const [loading, setLoading] = useState()
+  const [form, setForm] = useState([])
+
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       setLoading(true);
-      alert("Login");
+      const response = await userService.login(form)
+      console.log("response do Login", response)
+      if (response === true) {
+        alert("usuário Logado com Sucesso")
+      }
       setLoading(false);
     } catch (err) {
       alert("Algo deu errado com o Login" + err)
@@ -21,12 +29,12 @@ const Login = () => {
   };
 
   const handleChange = (event) => {
-    setForm({...form, [event.target.name]: event.target.value})
-  }
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
 
   const validadorInput = () => {
-    return validarEmail(form.email) && validarSenha(form.password)
-  }
+    return validarEmail(form.email) && validarSenha(form.password);
+  };
 
   console.log("Form esta valido? ", validadorInput());
   return (
@@ -56,7 +64,6 @@ const Login = () => {
           <div>
             <p>Não possui conta?</p>
             <NavLink to="cadastrar">Cadastrar</NavLink>
-
           </div>
         </Form>
       </Container>
