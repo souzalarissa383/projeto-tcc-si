@@ -18,7 +18,7 @@ export const BotaoCustomizado = styled.button`
     }
   `}
 
-  ${props => props.disabled === false &&`
+  ${props => props.disabled &&`
     opacity: 0.7
   `}
 `

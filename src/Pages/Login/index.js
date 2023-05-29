@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Form, Container } from "./style";
-import Input from "../../Components/Input/index";
-import Botao from "../../Components/Botao/index";
-import { validarEmail, validarSenha } from "../../Utils/validadores";
-import Nav from 'react-bootstrap/Nav';
+import React, { useState } from 'react'
+import { Form, Container } from './style'
+import Input from '../../Components/Input/index'
+import Botao from '../../Components/Botao/index'
+import { validarEmail, validarSenha } from '../../Utils/validadores'
+import { NavLink } from 'react-router-dom'
 
 const Login = () => {
-  const [loading, setLoading] = useState();
-  const [form, setForm] = useState([]);
-
+    const [loading, setLoading] = useState()
+    const [form, setForm] = useState([])
+    const navigate = useNavigate()
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -16,19 +17,19 @@ const Login = () => {
       alert("Login");
       setLoading(false);
     } catch (err) {
-      alert("Algo deu errado com o Login" + err);
+      alert("Algo deu errado com o Login" + err)
     }
   };
 
   const handleChange = (event) => {
-    console.log("Digitando...", event.target.name, event.targe.value);
-    setForm({ ...Form, [event.target.name]: event.target.value });
-    console.log("Form", form);
+    console.log("Digitando...", event.target.name, event.targe.value)
+    setForm({ ...Form, [event.target.name]: event.target.value })
+    console.log("Form", form)
   };
 
   const validadorInput = () => {
-    return validarEmail(form.email) && validarSenha(form.password);
-  };
+    return validarEmail(form.email) && validarSenha(form.password)
+  }
 
   console.log("Form esta valido? ", validadorInput());
   return (
@@ -50,19 +51,20 @@ const Login = () => {
           />
           <Botao
             type="submit"
-            text="Entrar!"
+            text="Entrar"
             onClick={handleSubmit}
             disabled={loading === true || !validadorInput()}
           />
 
           <div>
             <p>Não possui conta?</p>
-            <Nav.Link to="cadastrar">Cadastrar</Nav.Link>
+            <NavLink to="cadastrar">Cadastrar</NavLink>
+
           </div>
         </Form>
       </Container>
     </div>
-  )
-}
+  );
+};
 
 export default Login;
